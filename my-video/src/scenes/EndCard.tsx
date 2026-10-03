@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  AbsoluteFill,
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
 import { BlurText } from "../components/BlurText";
 import { ArrowUpRightIcon } from "../components/Icons";
-import { clamp, smooth } from "../motion";
+import { clamp, smooth, useT } from "../motion";
 import { COLORS, SANS, SERIF } from "../theme";
 
 const WORDMARK = "ONBARAKA";
@@ -15,12 +10,11 @@ const CTA_SIZE = 112;
 const CTA_WIDTH = 500;
 
 export const EndCard: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const frame = useT();
 
-  const ctaIn = smooth(frame, fps, 40, 14);
-  const ctaOpen = smooth(frame, fps, 48, 20);
-  const ctaLabel = smooth(frame, fps, 56, 14);
+  const ctaIn = smooth(frame, 36, 14);
+  const ctaOpen = smooth(frame, 44, 20);
+  const ctaLabel = smooth(frame, 52, 14);
   const ctaWidth = interpolate(ctaOpen, [0, 1], [CTA_SIZE, CTA_WIDTH]);
 
   return (
@@ -43,7 +37,7 @@ export const EndCard: React.FC = () => {
         }}
       >
         {WORDMARK.split("").map((letter, i) => {
-          const p = smooth(frame, fps, 4 + i * 2.5, 20);
+          const p = smooth(frame, i * 2.5, 20);
           return (
             <span
               key={i}
@@ -62,7 +56,7 @@ export const EndCard: React.FC = () => {
 
       <BlurText
         text="The app. Out now."
-        delay={22}
+        delay={18}
         stagger={3}
         fontSize={50}
         fontWeight={500}

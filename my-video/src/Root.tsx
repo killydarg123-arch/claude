@@ -13,8 +13,8 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="LaunchAd"
         component={LaunchAd}
-        durationInFrames={650}
-        fps={30}
+        durationInFrames={1436}
+        fps={60}
         width={1080}
         height={1920}
       />
@@ -22,40 +22,40 @@ export const RemotionRoot: React.FC = () => {
         <Composition
           id="Hook"
           component={Hook}
-          durationInFrames={80}
-          fps={30}
+          durationInFrames={152}
+          fps={60}
           width={1080}
           height={1920}
         />
         <Composition
           id="Island"
           component={Island}
-          durationInFrames={80}
-          fps={30}
+          durationInFrames={160}
+          fps={60}
           width={1080}
           height={1920}
         />
         <Composition
           id="PhoneTour"
           component={PhoneTour}
-          durationInFrames={290}
-          fps={30}
+          durationInFrames={752}
+          fps={60}
           width={1080}
           height={1920}
         />
         <Composition
           id="Tagline"
           component={Tagline}
-          durationInFrames={90}
-          fps={30}
+          durationInFrames={180}
+          fps={60}
           width={1080}
           height={1920}
         />
         <Composition
           id="EndCard"
           component={EndCard}
-          durationInFrames={110}
-          fps={30}
+          durationInFrames={220}
+          fps={60}
           width={1080}
           height={1920}
         />

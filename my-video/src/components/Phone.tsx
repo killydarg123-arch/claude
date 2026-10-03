@@ -137,12 +137,12 @@ export const Phone: React.FC<{
 
 // Translucent circle that shows where a finger taps.
 export const TapRipple: React.FC<{
-  readonly frame: number;
+  readonly t: number;
   readonly at: number;
   readonly x: number;
   readonly y: number;
-}> = ({ frame, at, x, y }) => {
-  const t = (frame - at) / 18;
+}> = ({ t: now, at, x, y }) => {
+  const t = (now - at) / 18;
   if (t < 0 || t > 1) {
     return null;
   }

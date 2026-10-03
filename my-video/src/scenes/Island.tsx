@@ -1,28 +1,23 @@
 import React from "react";
-import {
-  AbsoluteFill,
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
 import { ArrowUpRightIcon } from "../components/Icons";
-import { bouncy, clamp, smooth } from "../motion";
+import { bouncy, clamp, smooth, useT } from "../motion";
 import { COLORS, LIGHT_BG, PHONE, PHONE_SHADOW, SANS } from "../theme";
 
 const CLOSED = { width: 220, height: 64 };
 const OPEN = { width: 860, height: 214 };
-const CENTER_Y = 900;
+// Same height as the hook text, so the words dissolve into the pill.
+const CENTER_Y = 960;
 const STATUS = "Now live";
 
 // A Dynamic Island pill opens into a live activity, then stretches into
 // the exact shape of the phone so the next scene can cut in seamlessly.
 export const Island: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const frame = useT();
 
-  const appear = smooth(frame, fps, 0, 14);
-  const open = bouncy(frame, fps, 10);
-  const toPhone = smooth(frame, fps, 56, 22);
+  const appear = smooth(frame, 0, 14);
+  const open = bouncy(frame, 10);
+  const toPhone = smooth(frame, 56, 22);
 
   const pillWidth = interpolate(open, [0, 1], [CLOSED.width, OPEN.width]);
   const pillHeight = interpolate(open, [0, 1], [CLOSED.height, OPEN.height]);
@@ -35,10 +30,10 @@ export const Island: React.FC = () => {
     [CENTER_Y, PHONE.top + PHONE.height / 2],
   );
 
-  const contentIn = smooth(frame, fps, 24, 16);
+  const contentIn = smooth(frame, 24, 16);
   const contentOut = interpolate(frame, [50, 58], [0, 1], clamp);
   const typed = Math.floor(interpolate(frame, [32, 46], [0, STATUS.length], clamp));
-  const button = bouncy(frame, fps, 30);
+  const button = bouncy(frame, 30);
 
   return (
     <AbsoluteFill style={{ background: LIGHT_BG }}>

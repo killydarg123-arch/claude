@@ -1,7 +1,7 @@
 import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate } from "remotion";
 import { COLORS, SANS } from "../theme";
-import { bouncy, clamp } from "../motion";
+import { bouncy, clamp, useT } from "../motion";
 
 const VARIANTS = {
   ink: { background: COLORS.ink, color: COLORS.white },
@@ -20,11 +20,10 @@ export const Bubble: React.FC<{
   readonly delay: number;
   readonly exitAt: number;
 }> = ({ label, icon: Icon, variant, x, y, tilt, delay, exitAt }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const frame = useT();
   const { background, color } = VARIANTS[variant];
 
-  const pop = bouncy(frame, fps, delay);
+  const pop = bouncy(frame, delay);
   const exit = interpolate(frame, [exitAt, exitAt + 10], [0, 1], clamp);
 
   return (

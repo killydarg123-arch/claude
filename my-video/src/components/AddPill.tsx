@@ -1,7 +1,7 @@
 import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate } from "remotion";
 import { CheckIcon, PlusIcon } from "./Icons";
-import { bouncy, clamp, smooth } from "../motion";
+import { bouncy, clamp, smooth, useT } from "../motion";
 import { COLORS, SANS } from "../theme";
 
 const SIZE = 140;
@@ -14,18 +14,16 @@ export const AddPill: React.FC<{
   readonly x: number;
   readonly y: number;
 }> = ({ start, x, y }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const f = frame - start;
+  const f = useT() - start;
 
-  const appear = bouncy(f, fps, 0);
+  const appear = bouncy(f, 0);
   const press = interpolate(f, [14, 18, 24], [1, 0.9, 1], clamp);
-  const expand = smooth(f, fps, 18, 18);
+  const expand = smooth(f, 18, 18);
   const plusOut = interpolate(f, [18, 26], [0, 1], clamp);
-  const addIn = smooth(f, fps, 24, 14);
+  const addIn = smooth(f, 24, 14);
   const addOut = interpolate(f, [44, 52], [0, 1], clamp);
-  const savedIn = smooth(f, fps, 48, 14);
-  const exit = interpolate(f, [76, 88], [0, 1], clamp);
+  const savedIn = smooth(f, 48, 14);
+  const exit = interpolate(f, [84, 96], [0, 1], clamp);
 
   const width = interpolate(expand, [0, 1], [SIZE, OPEN_WIDTH]);
 

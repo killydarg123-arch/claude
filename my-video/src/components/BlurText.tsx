@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Easing,
-  interpolate,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { Easing, interpolate, spring } from "remotion";
 import { COLORS, SANS, SERIF } from "../theme";
-import { clamp } from "../motion";
+import { BEAT_FPS, clamp, useT } from "../motion";
 
 type Props = {
   // "\n" breaks lines. Wrap a word in *asterisks* to set it in the serif.
@@ -35,15 +29,14 @@ export const BlurText: React.FC<Props> = ({
   glow = false,
   style,
 }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const frame = useT();
 
   const lines = text.split("\n").map((line) => line.split(" ").filter(Boolean));
   const wordCount = lines.flat().length;
 
   const camera = spring({
     frame: frame - delay,
-    fps,
+    fps: BEAT_FPS,
     config: { damping: 200 },
     durationInFrames: wordCount * stagger + 20,
   });
@@ -74,9 +67,9 @@ export const BlurText: React.FC<Props> = ({
 
             const p = spring({
               frame: frame - start,
-              fps,
+              fps: BEAT_FPS,
               config: { damping: 200 },
-              durationInFrames: 18,
+              durationInFrames: 22,
             });
             const exit =
               exitAt === undefined
