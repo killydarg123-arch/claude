@@ -224,16 +224,16 @@ def chime():
 
     def glass(freq, start):
         t = times(d - start)
-        partials = [(1, 1.0, 0.9), (2.76, 0.22, 0.32), (5.4, 0.07, 0.14)]
+        partials = [(1, 1.0, 0.9), (2.76, 0.1, 0.25), (5.4, 0.025, 0.1)]
         x = sum(
             a * np.sin(2 * np.pi * freq * r * t) * np.exp(-t / dec)
             for r, a, dec in partials
         )
-        x *= np.clip(t / 0.002, 0, 1)
+        x *= np.clip(t / 0.006, 0, 1)
         return pad(np.concatenate([np.zeros(int(start * SR)), x]), d)
 
-    x = glass(1174.66, 0) + glass(1567.98, 0.09) + 0.35 * glass(587.33, 0.09)
-    return reverb(x, 0.3, HALL)
+    x = glass(1174.66, 0) + glass(1567.98, 0.09) + 0.5 * glass(587.33, 0.09)
+    return reverb(filt(x, "lowpass", 5500), 0.4, HALL)
 
 
 # Camera diving into the screen: accelerating whoosh that cuts on landing.
@@ -257,6 +257,22 @@ def hit(level_noise=0.35):
     sub = np.tanh(1.8 * sub) + 0.25 * tone(2 * f) * env(d, 0.002, 0.4)
     thump = filt(noise(d), "lowpass", 260) * env(d, 0.001, 0.05) * level_noise
     return reverb(sub + thump, 0.12, HALL)
+
+
+# Landing on black: a heavy impact. A deep pitch drop for weight, a punchy
+# knock and saturation so it still lands on phone speakers.
+def impact():
+    d = 3.2
+    t = times(d)
+    f = 34 + 62 * np.exp(-t / 0.16)
+    sub = tone(f) * env(d, 0.002, 0.85)
+    knock = 0.8 * tone(62 + 70 * np.exp(-t / 0.03)) * env(d, 0.001, 0.12)
+    body = np.tanh(2.6 * (sub + knock))
+    body += 0.3 * tone(2 * f) * env(d, 0.002, 0.5)
+    dark = filt(noise(d), "lowpass", 500) * env(d, 0.001, 0.08) * 0.5
+    crack = filt(noise(d), "lowpass", 1200) * env(d, 0.0005, 0.02) * 0.2
+    x = reverb(body + dark + crack, 0.15, HALL)
+    return np.tanh(1.3 * x) / np.tanh(1.3)
 
 
 # Glow on "presence.": a soft high glint and air.
@@ -322,7 +338,7 @@ if __name__ == "__main__":
     save("expand", expand())
     save("chime", chime())
     save("dive", dive())
-    save("hit", hit())
+    save("hit", impact())
     save("shimmer", shimmer())
     save("riser", riser())
     save("sting", sting())

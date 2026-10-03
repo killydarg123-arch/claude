@@ -41,8 +41,8 @@ export const Tagline: React.FC = () => {
           filter: `blur(${(1 - pillIn) * 8}px)`,
         }}
       />
-      <Sfx sound="hit" at={0} volume={0.9} />
-      <WordTicks text={TEXT} delay={0} stagger={6} volume={0.3} />
+      <Sfx sound="hit" at={0} volume={0.8} />
+      <WordTicks text={TEXT} delay={0} stagger={6} volume={0.12} />
       <Sfx sound="shimmer" at={22} volume={0.35} />
       <Sfx sound="riser" at={66} volume={0.6} />
       <Sfx sound="pop-1" at={69} volume={0.3} />

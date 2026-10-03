@@ -150,7 +150,7 @@ export const PhoneTour: React.FC = () => {
       <Sfx sound="pop-2" at={253} volume={0.45} />
       <Sfx sound="tap" at={265} volume={0.6} />
       <Sfx sound="expand" at={270} volume={0.45} />
-      <Sfx sound="chime" at={300} volume={0.5} />
+      <Sfx sound="chime" at={300} volume={0.3} />
       <Sfx sound="dive" at={336} volume={0.75} />
     </AbsoluteFill>
   );
