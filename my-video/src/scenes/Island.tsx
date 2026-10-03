@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, interpolate } from "remotion";
 import { ArrowUpRightIcon } from "../components/Icons";
+import { Sfx } from "../components/Sfx";
 import { bouncy, clamp, smooth, useT } from "../motion";
 import { COLORS, LIGHT_BG, PHONE, PHONE_SHADOW, SANS } from "../theme";
 
@@ -132,6 +133,13 @@ export const Island: React.FC = () => {
           </div>
         </div>
       </div>
+      <Sfx sound="pop-low" at={1} volume={0.6} />
+      <Sfx sound="bloom" at={10} volume={0.5} />
+      <Sfx sound="pop-3" at={31} volume={0.3} />
+      {STATUS.split("").map((_, i) => (
+        <Sfx key={i} sound="type" at={32 + (i + 1) * 1.75} volume={0.18} />
+      ))}
+      <Sfx sound="morph" at={54} volume={0.7} />
     </AbsoluteFill>
   );
 };

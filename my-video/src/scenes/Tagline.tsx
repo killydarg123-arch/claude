@@ -1,11 +1,14 @@
 import React from "react";
 import { AbsoluteFill, interpolate } from "remotion";
 import { BlurText } from "../components/BlurText";
+import { Sfx, WordTicks } from "../components/Sfx";
 import { glide, smooth, useT } from "../motion";
 import { COLORS } from "../theme";
 
 // The phone dive lands here on black. At the end a white pill grows from
 // the centre until it fills the frame, handing over to the white end card.
+const TEXT = "Built for\n*presence.*";
+
 export const Tagline: React.FC = () => {
   const t = useT();
 
@@ -17,7 +20,7 @@ export const Tagline: React.FC = () => {
       style={{ background: COLORS.ink, justifyContent: "center", alignItems: "center" }}
     >
       <BlurText
-        text={"Built for\n*presence.*"}
+        text={TEXT}
         delay={0}
         stagger={6}
         exitAt={62}
@@ -38,6 +41,11 @@ export const Tagline: React.FC = () => {
           filter: `blur(${(1 - pillIn) * 8}px)`,
         }}
       />
+      <Sfx sound="hit" at={0} volume={0.9} />
+      <WordTicks text={TEXT} delay={0} stagger={6} volume={0.3} />
+      <Sfx sound="shimmer" at={22} volume={0.35} />
+      <Sfx sound="riser" at={66} volume={0.6} />
+      <Sfx sound="pop-1" at={69} volume={0.3} />
     </AbsoluteFill>
   );
 };

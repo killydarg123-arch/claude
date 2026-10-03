@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, interpolate } from "remotion";
 import { BlurText } from "../components/BlurText";
 import { ArrowUpRightIcon } from "../components/Icons";
+import { Sfx } from "../components/Sfx";
 import { clamp, smooth, useT } from "../motion";
 import { COLORS, SANS, SERIF } from "../theme";
 
@@ -100,6 +101,9 @@ export const EndCard: React.FC = () => {
           <ArrowUpRightIcon size={44} color={COLORS.white} />
         </div>
       </div>
+      <Sfx sound="sting" at={0} volume={0.85} />
+      <Sfx sound="pop-cta" at={37} volume={0.45} />
+      <Sfx sound="expand" at={44} volume={0.3} />
     </AbsoluteFill>
   );
 };

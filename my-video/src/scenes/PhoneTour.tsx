@@ -5,6 +5,7 @@ import { BlurText } from "../components/BlurText";
 import { Bubble } from "../components/Bubble";
 import { ChatIcon, HeartIcon, SendIcon } from "../components/Icons";
 import { Phone, Screen, TapRipple } from "../components/Phone";
+import { Sfx, WordTicks } from "../components/Sfx";
 import { clamp, glide, smooth, useT } from "../motion";
 import { LIGHT_BG, PHONE, SCREEN_WIDTH, STATUS_H } from "../theme";
 
@@ -34,6 +35,7 @@ const Headline: React.FC<{
     }}
   >
     <BlurText text={text} delay={delay} stagger={4} exitAt={exitAt} fontSize={108} />
+    <WordTicks text={text} delay={delay} stagger={4} volume={0.22} />
   </AbsoluteFill>
 );
 
@@ -138,6 +140,18 @@ export const PhoneTour: React.FC = () => {
 
       <AddPill start={252} x={540} y={1450} />
       <TapRipple t={t} at={264} x={540} y={1450} />
+
+      <Sfx sound="swipe" at={79} volume={0.55} />
+      <Sfx sound="tap" at={146} volume={0.6} />
+      <Sfx sound="swipe" at={157} volume={0.55} />
+      <Sfx sound="pop-1" at={177} volume={0.5} />
+      <Sfx sound="pop-2" at={187} volume={0.5} />
+      <Sfx sound="pop-3" at={197} volume={0.5} />
+      <Sfx sound="pop-2" at={253} volume={0.45} />
+      <Sfx sound="tap" at={265} volume={0.6} />
+      <Sfx sound="expand" at={270} volume={0.45} />
+      <Sfx sound="chime" at={300} volume={0.5} />
+      <Sfx sound="dive" at={336} volume={0.75} />
     </AbsoluteFill>
   );
 };
