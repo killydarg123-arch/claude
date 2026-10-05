@@ -110,12 +110,23 @@ const Button: React.FC<{ side: "left" | "right"; top: number; height: number }> 
 export const Phone: React.FC<{
   readonly rotateX?: number;
   readonly rotateY?: number;
+  readonly rotateZ?: number;
+  // Motion blur while the phone is moving fast.
+  readonly blur?: number;
   readonly frameOpacity?: number;
   // The glass highlight; kept off while the screen fills the frame.
   readonly glass?: number;
   readonly children: React.ReactNode;
-}> = ({ rotateX = 0, rotateY = 0, frameOpacity = 1, glass = 1, children }) => {
-  const tilt = `perspective(2600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+}> = ({
+  rotateX = 0,
+  rotateY = 0,
+  rotateZ = 0,
+  blur = 0,
+  frameOpacity = 1,
+  glass = 1,
+  children,
+}) => {
+  const tilt = `perspective(2600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
 
   return (
     <>
@@ -142,6 +153,7 @@ export const Phone: React.FC<{
           height: PHONE.height,
           transform: tilt,
           transformStyle: "preserve-3d",
+          filter: blur > 0.05 ? `blur(${blur}px)` : undefined,
         }}
       >
         {/* Back plate, pushed back in depth so a tilt reveals the edge. */}

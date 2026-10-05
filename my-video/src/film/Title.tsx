@@ -13,10 +13,24 @@ export const Title: React.FC<{
   readonly size?: number;
   readonly weight?: number;
   readonly color?: string;
-}> = ({ text, inAt, outAt, y, size = 92, weight = 600, color = COLORS.ink }) => {
+  readonly font?: string;
+  readonly enterFor?: number;
+  readonly leaveFor?: number;
+}> = ({
+  text,
+  inAt,
+  outAt,
+  y,
+  size = 92,
+  weight = 600,
+  color = COLORS.ink,
+  font = SANS,
+  enterFor = 1.0,
+  leaveFor = 0.5,
+}) => {
   const t = useSeconds();
-  const enter = ramp(t, inAt, 1.0, EASE.out);
-  const leave = ramp(t, outAt, 0.5, EASE.in);
+  const enter = ramp(t, inAt, enterFor, EASE.out);
+  const leave = ramp(t, outAt, leaveFor, EASE.in);
 
   if (enter === 0 || leave === 1) {
     return null;
@@ -26,7 +40,7 @@ export const Title: React.FC<{
     <AbsoluteFill style={{ top: y - size, height: size * 2, alignItems: "center", justifyContent: "center" }}>
       <div
         style={{
-          fontFamily: SANS,
+          fontFamily: font,
           fontWeight: weight,
           fontSize: size,
           letterSpacing: "-0.03em",
